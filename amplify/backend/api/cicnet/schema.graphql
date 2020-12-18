@@ -1,0 +1,53 @@
+enum UserType {
+  ALUMNI
+  CIC_STAFF
+  SPONSOR
+}
+
+type User @model {
+  id: ID!
+  name: String!
+  email: String
+  username: String
+  userType: UserType
+  about: String
+  posts: [UserPost] @connection(keyName: "byUser", fields:["id"])
+  users: [User] @connection(keyName: "Users")
+  challenges: [String]
+}
+
+enum PostType{
+  CHALLENGE
+  UPDATE
+  EVENT
+}
+
+type Post @model{
+  id: ID!
+  title: String!
+  description: String
+  postType: PostType
+  users: [UserPost] @connection(keyName: "byPost", fields:["id"])
+  sponsor: String,
+  students: [String],
+  comments: [Comment] @connection(keyName: "PostComments")
+}
+
+type UserPost @model(queries:null)
+  @key(name:"byPost", fields:["postId", "userId"])
+  @key(name:"byUser", fields:["userId", "postId"]){
+    id: ID!
+    postId: ID!
+    userId: ID!
+    post: Post! @connection(fields:["postId"])
+    user: User! @connection(fields: ["userId"])
+
+}
+
+
+type Comment @model {
+  id: ID!
+  postID: ID!
+  post: Post @connection(keyName: "PostComments")
+  content: String!
+}

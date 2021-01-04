@@ -1,5 +1,5 @@
 # CICNET User's Guide
-This user guide contains a brief tutorial to get you started using the Vaccine iOT frontend 
+This user guide contains a brief tutorial to get you started using CICNET
 
 ---
 

@@ -163,8 +163,8 @@ class Dashboard extends React.Component {
                      {/* <Alert color="info" data-notify="message">
                           <span>{update.description}</span>
                       </Alert> */}
-                      <div className="card-description">
-                        <span>{update.description}</span>
+                      <div className="card-description" >
+                       {update.description}
                       </div>
                    
                     </CardBody>

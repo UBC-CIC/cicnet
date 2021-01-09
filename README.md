@@ -18,6 +18,6 @@ This prototype will be used as an internal social network for the CIC. CIC Alumn
 The user guide can be found here [User Guide](./docs/user_guide.md)
 
 # License 
-This project is distributed under [MIT](./docs/LICENSE.md)
+This project is distributed under [MIT](./dLICENSE.md)
 
 

@@ -12,7 +12,7 @@ This prototype will be used as an internal social network for the CIC. CIC Alumn
 
 ## Architechture Diagram
 
-<src= "./images/diagram_iot.png">
+<img src= "./images/diagram_iot.png">
 
 # User Guide 
 The user guide can be found here [User Guide](./docs/user_guide.md)

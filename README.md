@@ -8,7 +8,7 @@ This prototype will be used as an internal social network for the CIC. CIC Alumn
 
 * **Database** Data saved on DynamoDB
 
-* **Back-end** DynamoDB is used for the database, Cognito for user profiles, and 
+* **Back-end** DynamoDB is used for the database, and Cognito for user profiles.
 
 ## Architechture Diagram
 

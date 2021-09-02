@@ -1,0 +1,31 @@
+ion-icon {
+    font-size: 24px;
+}
+
+.navbar a {
+    text-decoration: none;
+    /* text-shadow: 2px 4px 3px rgba(0,0,0,0.3); */
+
+    text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                 0px -5px 35px rgba(255,255,255,0.3);
+    color: inherit;
+    transition: 0.5s;
+}
+
+.navbar a:hover > * {
+    border-radius: 5px 0 0 5px;
+    margin: 0 5px;
+
+    /* background: #1659b1; */
+    background: rgba(22, 89, 177, 0.5);
+    transition: 0.5s;
+    visibility: unset;
+}
+
+.navbar a.active > * {
+    border-radius: 5px 0 0 5px;
+    
+    background-color:rgb(255, 152, 0);
+    color: whitesmoke;
+    visibility: unset;
+}

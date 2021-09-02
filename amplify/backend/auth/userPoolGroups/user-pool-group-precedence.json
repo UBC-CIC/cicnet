@@ -1,0 +1,18 @@
+[
+    {
+        "groupName": "Admin",
+        "precedence": 1
+    },
+    {
+        "groupName": "CICStaff",
+        "precedence": 2
+    },
+    {
+        "groupName": "CICStudent",
+        "precedence": 3
+    },
+    {
+        "groupName": "General",
+        "precedence": 4
+    }
+]

@@ -1,0 +1,380 @@
+enum UserType {
+  ALUMNI
+  CIC_STUDENT
+  CIC_STAFF
+  SPONSOR
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String
+  username: String
+  userType: UserType!
+  confirmed: Boolean
+  about: String
+  coopEndDate: String
+  challenges: [String]
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Challenge {
+  id: ID!
+  image: String
+  title: String!
+  description: String
+  location: String!
+  status: String!
+  sponsors: [String]
+  staffs: [String]
+  students: [String]
+  artifacts: [String]
+  posts(createdAt: ModelStringKeyConditionInput, filter: ModelPostFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPostConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum PostType {
+  UPDATE
+  EVENT
+}
+
+type Post {
+  id: ID!
+  image: [String]
+  title: String!
+  content: String!
+  postType: PostType
+  challengeID: ID!
+  challenge: Challenge
+  createdAt: String!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserConnection {
+  items: [User]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelUserTypeInput {
+  eq: UserType
+  ne: UserType
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  email: ModelStringInput
+  username: ModelStringInput
+  userType: ModelUserTypeInput
+  confirmed: ModelBooleanInput
+  about: ModelStringInput
+  coopEndDate: ModelStringInput
+  challenges: ModelStringInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getUser(id: ID!): User
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
+  getChallenge(id: ID!): Challenge
+  listChallenges(filter: ModelChallengeFilterInput, limit: Int, nextToken: String): ModelChallengeConnection
+  getPost(id: ID!): Post
+  listPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
+  postsByDate(challengeID: ID, createdAt: ModelStringKeyConditionInput, sortDirection: ModelSortDirection, filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
+}
+
+input CreateUserInput {
+  id: ID
+  name: String!
+  email: String
+  username: String
+  userType: UserType!
+  confirmed: Boolean
+  about: String
+  coopEndDate: String
+  challenges: [String]
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  email: String
+  username: String
+  userType: UserType
+  confirmed: Boolean
+  about: String
+  coopEndDate: String
+  challenges: [String]
+}
+
+input DeleteUserInput {
+  id: ID!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User
+  createChallenge(input: CreateChallengeInput!, condition: ModelChallengeConditionInput): Challenge
+  updateChallenge(input: UpdateChallengeInput!, condition: ModelChallengeConditionInput): Challenge
+  deleteChallenge(input: DeleteChallengeInput!, condition: ModelChallengeConditionInput): Challenge
+  createPost(input: CreatePostInput!, condition: ModelPostConditionInput): Post
+  updatePost(input: UpdatePostInput!, condition: ModelPostConditionInput): Post
+  deletePost(input: DeletePostInput!, condition: ModelPostConditionInput): Post
+}
+
+input ModelUserConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  username: ModelStringInput
+  userType: ModelUserTypeInput
+  confirmed: ModelBooleanInput
+  about: ModelStringInput
+  coopEndDate: ModelStringInput
+  challenges: ModelStringInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+type Subscription {
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
+  onCreateChallenge: Challenge @aws_subscribe(mutations: ["createChallenge"])
+  onUpdateChallenge: Challenge @aws_subscribe(mutations: ["updateChallenge"])
+  onDeleteChallenge: Challenge @aws_subscribe(mutations: ["deleteChallenge"])
+  onCreatePost: Post @aws_subscribe(mutations: ["createPost"])
+  onUpdatePost: Post @aws_subscribe(mutations: ["updatePost"])
+  onDeletePost: Post @aws_subscribe(mutations: ["deletePost"])
+}
+
+type ModelChallengeConnection {
+  items: [Challenge]
+  nextToken: String
+}
+
+input ModelChallengeFilterInput {
+  id: ModelIDInput
+  image: ModelStringInput
+  title: ModelStringInput
+  description: ModelStringInput
+  location: ModelStringInput
+  status: ModelStringInput
+  sponsors: ModelStringInput
+  staffs: ModelStringInput
+  students: ModelStringInput
+  artifacts: ModelStringInput
+  and: [ModelChallengeFilterInput]
+  or: [ModelChallengeFilterInput]
+  not: ModelChallengeFilterInput
+}
+
+input CreateChallengeInput {
+  id: ID
+  image: String
+  title: String!
+  description: String
+  location: String!
+  status: String!
+  sponsors: [String]
+  staffs: [String]
+  students: [String]
+  artifacts: [String]
+}
+
+input UpdateChallengeInput {
+  id: ID!
+  image: String
+  title: String
+  description: String
+  location: String
+  status: String
+  sponsors: [String]
+  staffs: [String]
+  students: [String]
+  artifacts: [String]
+}
+
+input DeleteChallengeInput {
+  id: ID!
+}
+
+input ModelChallengeConditionInput {
+  image: ModelStringInput
+  title: ModelStringInput
+  description: ModelStringInput
+  location: ModelStringInput
+  status: ModelStringInput
+  sponsors: ModelStringInput
+  staffs: ModelStringInput
+  students: ModelStringInput
+  artifacts: ModelStringInput
+  and: [ModelChallengeConditionInput]
+  or: [ModelChallengeConditionInput]
+  not: ModelChallengeConditionInput
+}
+
+type ModelPostConnection {
+  items: [Post]
+  nextToken: String
+}
+
+input ModelPostTypeInput {
+  eq: PostType
+  ne: PostType
+}
+
+input ModelPostFilterInput {
+  id: ModelIDInput
+  image: ModelStringInput
+  title: ModelStringInput
+  content: ModelStringInput
+  postType: ModelPostTypeInput
+  challengeID: ModelIDInput
+  createdAt: ModelStringInput
+  and: [ModelPostFilterInput]
+  or: [ModelPostFilterInput]
+  not: ModelPostFilterInput
+}
+
+input CreatePostInput {
+  id: ID
+  image: [String]
+  title: String!
+  content: String!
+  postType: PostType
+  challengeID: ID!
+  createdAt: String
+}
+
+input UpdatePostInput {
+  id: ID!
+  image: [String]
+  title: String
+  content: String
+  postType: PostType
+  challengeID: ID
+  createdAt: String
+}
+
+input DeletePostInput {
+  id: ID!
+}
+
+input ModelPostConditionInput {
+  image: ModelStringInput
+  title: ModelStringInput
+  content: ModelStringInput
+  postType: ModelPostTypeInput
+  challengeID: ModelIDInput
+  createdAt: ModelStringInput
+  and: [ModelPostConditionInput]
+  or: [ModelPostConditionInput]
+  not: ModelPostConditionInput
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}

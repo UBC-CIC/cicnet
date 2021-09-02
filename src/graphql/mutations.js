@@ -12,31 +12,9 @@ export const createUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
-      posts {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      users {
-        items {
-          id
-          name
-          email
-          username
-          userType
-          about
-          challenges
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      coopEndDate
       challenges
       createdAt
       updatedAt
@@ -54,31 +32,9 @@ export const updateUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
-      posts {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      users {
-        items {
-          id
-          name
-          email
-          username
-          userType
-          about
-          challenges
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      coopEndDate
       challenges
       createdAt
       updatedAt
@@ -96,32 +52,163 @@ export const deleteUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
+      coopEndDate
+      challenges
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createChallenge = /* GraphQL */ `
+  mutation CreateChallenge(
+    $input: CreateChallengeInput!
+    $condition: ModelChallengeConditionInput
+  ) {
+    createChallenge(input: $input, condition: $condition) {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
       posts {
         items {
           id
-          postId
-          userId
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
         nextToken
       }
-      users {
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateChallenge = /* GraphQL */ `
+  mutation UpdateChallenge(
+    $input: UpdateChallengeInput!
+    $condition: ModelChallengeConditionInput
+  ) {
+    updateChallenge(input: $input, condition: $condition) {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
+      posts {
         items {
           id
-          name
-          email
-          username
-          userType
-          about
-          challenges
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
         nextToken
       }
-      challenges
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteChallenge = /* GraphQL */ `
+  mutation DeleteChallenge(
+    $input: DeleteChallengeInput!
+    $condition: ModelChallengeConditionInput
+  ) {
+    deleteChallenge(input: $input, condition: $condition) {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
+      posts {
+        items {
+          id
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -134,30 +221,51 @@ export const createPost = /* GraphQL */ `
   ) {
     createPost(input: $input, condition: $condition) {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
+      challengeID
+      challenge {
+        id
+        image
+        title
+        description
+        location
+        status
+        sponsors
+        staffs
+        students
+        artifacts
+        posts {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -171,30 +279,51 @@ export const updatePost = /* GraphQL */ `
   ) {
     updatePost(input: $input, condition: $condition) {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
+      challengeID
+      challenge {
+        id
+        image
+        title
+        description
+        location
+        status
+        sponsors
+        staffs
+        students
+        artifacts
+        posts {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -208,262 +337,52 @@ export const deletePost = /* GraphQL */ `
   ) {
     deletePost(input: $input, condition: $condition) {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createUserPost = /* GraphQL */ `
-  mutation CreateUserPost(
-    $input: CreateUserPostInput!
-    $condition: ModelUserPostConditionInput
-  ) {
-    createUserPost(input: $input, condition: $condition) {
-      id
-      postId
-      userId
-      post {
+      challengeID
+      challenge {
         id
+        image
         title
         description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
+        location
+        status
+        sponsors
+        staffs
         students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      user {
-        id
-        name
-        email
-        username
-        userType
-        about
+        artifacts
         posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
-        challenges
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateUserPost = /* GraphQL */ `
-  mutation UpdateUserPost(
-    $input: UpdateUserPostInput!
-    $condition: ModelUserPostConditionInput
-  ) {
-    updateUserPost(input: $input, condition: $condition) {
-      id
-      postId
-      userId
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
         updatedAt
       }
-      user {
-        id
-        name
-        email
-        username
-        userType
-        about
-        posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
-        challenges
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteUserPost = /* GraphQL */ `
-  mutation DeleteUserPost(
-    $input: DeleteUserPostInput!
-    $condition: ModelUserPostConditionInput
-  ) {
-    deleteUserPost(input: $input, condition: $condition) {
-      id
-      postId
-      userId
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      user {
-        id
-        name
-        email
-        username
-        userType
-        about
-        posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
-        challenges
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    createComment(input: $input, condition: $condition) {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    updateComment(input: $input, condition: $condition) {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    deleteComment(input: $input, condition: $condition) {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
       createdAt
       updatedAt
     }

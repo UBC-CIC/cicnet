@@ -9,31 +9,9 @@ export const onCreateUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
-      posts {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      users {
-        items {
-          id
-          name
-          email
-          username
-          userType
-          about
-          challenges
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      coopEndDate
       challenges
       createdAt
       updatedAt
@@ -48,31 +26,9 @@ export const onUpdateUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
-      posts {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      users {
-        items {
-          id
-          name
-          email
-          username
-          userType
-          about
-          challenges
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      coopEndDate
       challenges
       createdAt
       updatedAt
@@ -87,32 +43,154 @@ export const onDeleteUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
+      coopEndDate
+      challenges
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateChallenge = /* GraphQL */ `
+  subscription OnCreateChallenge {
+    onCreateChallenge {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
       posts {
         items {
           id
-          postId
-          userId
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
         nextToken
       }
-      users {
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateChallenge = /* GraphQL */ `
+  subscription OnUpdateChallenge {
+    onUpdateChallenge {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
+      posts {
         items {
           id
-          name
-          email
-          username
-          userType
-          about
-          challenges
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
         nextToken
       }
-      challenges
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteChallenge = /* GraphQL */ `
+  subscription OnDeleteChallenge {
+    onDeleteChallenge {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
+      posts {
+        items {
+          id
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -122,30 +200,51 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost {
     onCreatePost {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
+      challengeID
+      challenge {
+        id
+        image
+        title
+        description
+        location
+        status
+        sponsors
+        staffs
+        students
+        artifacts
+        posts {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -156,30 +255,51 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost {
     onUpdatePost {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
+      challengeID
+      challenge {
+        id
+        image
+        title
+        description
+        location
+        status
+        sponsors
+        staffs
+        students
+        artifacts
+        posts {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -190,244 +310,52 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost {
     onDeletePost {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateUserPost = /* GraphQL */ `
-  subscription OnCreateUserPost {
-    onCreateUserPost {
-      id
-      postId
-      userId
-      post {
+      challengeID
+      challenge {
         id
+        image
         title
         description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
+        location
+        status
+        sponsors
+        staffs
         students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      user {
-        id
-        name
-        email
-        username
-        userType
-        about
+        artifacts
         posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
-        challenges
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateUserPost = /* GraphQL */ `
-  subscription OnUpdateUserPost {
-    onUpdateUserPost {
-      id
-      postId
-      userId
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
         updatedAt
       }
-      user {
-        id
-        name
-        email
-        username
-        userType
-        about
-        posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
-        challenges
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteUserPost = /* GraphQL */ `
-  subscription OnDeleteUserPost {
-    onDeleteUserPost {
-      id
-      postId
-      userId
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      user {
-        id
-        name
-        email
-        username
-        userType
-        about
-        posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
-        challenges
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
       createdAt
       updatedAt
     }

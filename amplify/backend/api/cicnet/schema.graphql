@@ -1,5 +1,6 @@
 enum UserType {
   ALUMNI
+  CIC_STUDENT
   CIC_STAFF
   SPONSOR
 }
@@ -9,45 +10,40 @@ type User @model {
   name: String!
   email: String
   username: String
-  userType: UserType
+  userType: UserType!
+  confirmed: Boolean
   about: String
-  posts: [UserPost] @connection(keyName: "byUser", fields:["id"])
-  users: [User] @connection(keyName: "Users")
+  coopEndDate: String @defaultValue(value: "N/A")
   challenges: [String]
 }
 
+type Challenge @model{
+  id: ID!
+  image: String
+  title: String!
+  description: String
+  location: String!
+  status: String!
+  sponsors: [String]
+  staffs: [String]
+  students: [String]
+  artifacts: [String]
+  posts: [Post] @connection(keyName: "ChallengePosts", fields: ["id"])
+}
+
 enum PostType{
-  CHALLENGE
   UPDATE
   EVENT
 }
 
-type Post @model{
+type Post @model 
+  @key(name: "ChallengePosts", fields: ["challengeID", "createdAt"], queryField: "postsByDate") {
   id: ID!
+  image: [String]
   title: String!
-  description: String
-  postType: PostType
-  users: [UserPost] @connection(keyName: "byPost", fields:["id"])
-  sponsor: String,
-  students: [String],
-  comments: [Comment] @connection(keyName: "PostComments")
-}
-
-type UserPost @model(queries:null)
-  @key(name:"byPost", fields:["postId", "userId"])
-  @key(name:"byUser", fields:["userId", "postId"]){
-    id: ID!
-    postId: ID!
-    userId: ID!
-    post: Post! @connection(fields:["postId"])
-    user: User! @connection(fields: ["userId"])
-
-}
-
-
-type Comment @model {
-  id: ID!
-  postID: ID!
-  post: Post @connection(keyName: "PostComments")
   content: String!
+  postType: PostType
+  challengeID: ID!
+  challenge: Challenge @connection(fields: ["challengeID"])
+  createdAt: String!
 }

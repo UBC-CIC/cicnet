@@ -9,31 +9,9 @@ export const getUser = /* GraphQL */ `
       email
       username
       userType
+      confirmed
       about
-      posts {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      users {
-        items {
-          id
-          name
-          email
-          username
-          userType
-          about
-          challenges
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
+      coopEndDate
       challenges
       createdAt
       updatedAt
@@ -53,14 +31,110 @@ export const listUsers = /* GraphQL */ `
         email
         username
         userType
+        confirmed
         about
-        posts {
-          nextToken
-        }
-        users {
-          nextToken
-        }
+        coopEndDate
         challenges
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getChallenge = /* GraphQL */ `
+  query GetChallenge($id: ID!) {
+    getChallenge(id: $id) {
+      id
+      image
+      title
+      description
+      location
+      status
+      sponsors
+      staffs
+      students
+      artifacts
+      posts {
+        items {
+          id
+          image
+          title
+          content
+          postType
+          challengeID
+          challenge {
+            id
+            image
+            title
+            description
+            location
+            status
+            sponsors
+            staffs
+            students
+            artifacts
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listChallenges = /* GraphQL */ `
+  query ListChallenges(
+    $filter: ModelChallengeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChallenges(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        image
+        title
+        description
+        location
+        status
+        sponsors
+        staffs
+        students
+        artifacts
+        posts {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -72,30 +146,51 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
+      image
       title
-      description
+      content
       postType
-      users {
-        items {
-          id
-          postId
-          userId
-          createdAt
-          updatedAt
+      challengeID
+      challenge {
+        id
+        image
+        title
+        description
+        location
+        status
+        sponsors
+        staffs
+        students
+        artifacts
+        posts {
+          items {
+            id
+            image
+            title
+            content
+            postType
+            challengeID
+            challenge {
+              id
+              image
+              title
+              description
+              location
+              status
+              sponsors
+              staffs
+              students
+              artifacts
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
-        nextToken
-      }
-      sponsor
-      students
-      comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-        }
-        nextToken
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt
@@ -111,16 +206,37 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        image
         title
-        description
+        content
         postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
+        challengeID
+        challenge {
+          id
+          image
+          title
+          description
+          location
+          status
+          sponsors
+          staffs
+          students
+          artifacts
+          posts {
+            items {
+              id
+              image
+              title
+              content
+              postType
+              challengeID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
         }
         createdAt
         updatedAt
@@ -129,54 +245,57 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
-      id
-      postID
-      post {
-        id
-        title
-        description
-        postType
-        users {
-          nextToken
-        }
-        sponsor
-        students
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      content
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const postsByDate = /* GraphQL */ `
+  query PostsByDate(
+    $challengeID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    postsByDate(
+      challengeID: $challengeID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
-        postID
-        post {
+        image
+        title
+        content
+        postType
+        challengeID
+        challenge {
           id
+          image
           title
           description
-          postType
-          sponsor
+          location
+          status
+          sponsors
+          staffs
           students
+          artifacts
+          posts {
+            items {
+              id
+              image
+              title
+              content
+              postType
+              challengeID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
-        content
         createdAt
         updatedAt
       }

@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "cicnet",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "S3DeploymentBucket": "amplify-cicnet-dev-114149-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/edbcbae2ff502319371e12e2cb1c164cb6923698"
+}

@@ -1,0 +1,94 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "authcicnetauthUserPoolId": {
+            "Type": "String",
+            "Default": "authcicnetauthUserPoolId"
+        },
+        
+        "authcicnetauthAppClientID": {
+            "Type": "String",
+            "Default": "authcicnetauthAppClientID"
+        },
+        "authcicnetauthAppClientIDWeb": {
+            "Type": "String",
+            "Default": "authcicnetauthAppClientIDWeb"
+        },
+        "AuthRoleArn": {
+            "Type": "String"
+        },
+        "UnauthRoleArn": {
+            "Type": "String"
+        },
+        "env": {
+            "Type": "String"
+        }
+    },
+    "Conditions": {
+        "ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        }
+    },
+    "Resources": {
+    
+        "AdminGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "Admin",
+              "Precedence" : 1,
+              
+              "UserPoolId" : {
+                "Ref": "authcicnetauthUserPoolId"
+              }
+            }
+        },
+        
+    
+        "CICStaffGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "CICStaff",
+              "Precedence" : 2,
+              
+              "UserPoolId" : {
+                "Ref": "authcicnetauthUserPoolId"
+              }
+            }
+        },
+        
+    
+        "CICStudentGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "CICStudent",
+              "Precedence" : 3,
+              
+              "UserPoolId" : {
+                "Ref": "authcicnetauthUserPoolId"
+              }
+            }
+        },
+        
+    
+        "GeneralGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "General",
+              "Precedence" : 4,
+              
+              "UserPoolId" : {
+                "Ref": "authcicnetauthUserPoolId"
+              }
+            }
+        },
+        
+    
+    
+    },
+    
+}

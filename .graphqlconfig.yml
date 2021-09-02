@@ -1,6 +1,6 @@
 projects:
   cicnet:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/cicnet/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -10,6 +10,9 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
+        region: ca-central-1
+        apiId: null
+        maxDepth: 5
 extensions:
   amplify:
     version: 3

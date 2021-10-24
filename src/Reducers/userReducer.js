@@ -1,11 +1,14 @@
 const userReducer = (currentState = [], action) => {
     switch(action.type) {
         case "GET_USER_LIST": {
-            return action.payload.map((element, index) => (
+            console.log(action.type)
+            const newState = action.payload.map((element, index) => (
                 {
                     id: index,
                     _id: element.id,
                     name: element.name,
+                    firstname: element.firstname,
+                    lastname: element.lastname,
                     userType: userTypes[element.userType], // change to readable strings
                     email: element.email,
                     confirmed: element.confirmed,
@@ -14,14 +17,17 @@ const userReducer = (currentState = [], action) => {
                     createdAt: formatDate(new Date(element.createdAt)),
                 }
               ));
+            return newState;
         }
         case "ADD_NEW_USER": {
-            return [
-                ...currentState,
+            console.log(action.type)
+            const newState = [...currentState,
                 {
                     id: currentState.length,
                     _id: action.payload.id,
                     name: action.payload.name,
+                    firstname: action.payload.firstname,
+                    lastname: action.payload.lastname,
                     userType: userTypes[action.payload.userType],
                     email: action.payload.email,
                     confirmed: action.payload.confirmed,
@@ -30,8 +36,10 @@ const userReducer = (currentState = [], action) => {
                     createdAt: formatDate(new Date(action.payload.createdAt)),
                 }
             ]
+            return newState
         }
-        case "UPDATE_USER_STATUS": {
+        case "UPDATE_USER_INFO": {
+            console.log(action.type)
             const index = currentState.findIndex((element) => element._id === action.payload.id);
 
             const newState = [...currentState];
@@ -39,6 +47,7 @@ const userReducer = (currentState = [], action) => {
             return newState
         }
         default:
+            console.log(action.type)
             return currentState
     }
 }

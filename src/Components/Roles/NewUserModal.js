@@ -14,7 +14,7 @@ import { FormInput, FormSelect } from "../Challenges/NewChallenge/InputFields";
 import { createMemberInChallenge } from "../../Views/UserProfile/Admin/roles";
 import { useDispatch } from "react-redux";
 import { LoadingButton } from "../Buttons";
-import { addNewUser } from "../../Actions/userActions";
+import { addNewUser, updateUserInfo } from "../../Actions/userActions";
 
 
 const useStyles = makeStyles((theme)=> ({
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme)=> ({
 }))
 
 export default function NewUserModal(props) {
-    const {openDialogue, handleDialogueClose} = props;
+    const {dialogueMode, handleDialogueClose} = props;
     const dispatch = useDispatch();
     const classes = useStyles();
     const initialDialogValue = {
@@ -44,6 +44,7 @@ export default function NewUserModal(props) {
     };
     const [dialogValue, setDialogValue] = useState(initialDialogValue);
     const [loading, setLoading] = useState(false);
+    const [localDialogMode, setLocalDialogMode] = useState(null);
 
     const handleClose = () => {
         handleDialogueClose();
@@ -52,28 +53,53 @@ export default function NewUserModal(props) {
 
     const handleDialogueSubmit = async (event) => {
         event.preventDefault();
-        const name = dialogValue.userType === "SPONSOR" ? dialogValue.name : `${dialogValue.firstname} ${dialogValue.lastname}`
-
-        const userInfo = {
-            name: name, 
+        const userInfo = dialogValue.userType === "Sponsor" ? 
+        {
+            name: dialogValue.name, 
             email: dialogValue.email, 
-            userType: dialogValue.userType,
+            userType: dialogValue.userType.toUpperCase().replace(/\s+/g, '_'),
+        }
+        :
+        {
+            name: `${dialogValue.firstname} ${dialogValue.lastname}`, 
+            firstname: dialogValue.firstname,
+            lastname: dialogValue.lastname,
+            email: dialogValue.email, 
+            userType: dialogValue.userType.toUpperCase().replace(/\s+/g, '_'),
             coopEndDate: dialogValue.coopEndDate
         }
 
         setLoading(true)
-        const createdUser = await createMemberInChallenge(userInfo);
-        dispatch(addNewUser(createdUser))
+        if (localDialogMode === "new") {
+            const createdUser = await createMemberInChallenge(userInfo);
+            dispatch(addNewUser(createdUser))
+        } else { // if === 'edit'
+            dispatch(updateUserInfo({
+                ...userInfo,
+                id: dialogueMode.id
+            })) 
+        }
+        
         handleClose();
         setLoading(false)
     };
+    
+    useEffect(()=> {
+        if (!!dialogueMode) { // if dialogueMode is not null
+            if (Object.keys(dialogueMode).length === 0) setLocalDialogMode("new")
+            else {
+                setLocalDialogMode("edit")
+                setDialogValue(dialogueMode)
+            }
+        }
+    }, [dialogueMode])
 
     return (
-        <Dialog className={classes.root} open={openDialogue} aria-labelledby="add-new-user">
-            <DialogTitle id="add-new-user-title">Add New User</DialogTitle>
+        <Dialog className={classes.root} open={!!dialogueMode} aria-labelledby="modify-user">
+            <DialogTitle id="modify-user-title">{localDialogMode === "new" ? "Add New User" : "Edit User"}</DialogTitle>
             <DialogContent>
                 <form 
-                    id="new-user" 
+                    id="user-form" 
                     style={{ display: "flex", flexDirection: "column", width: 'inherit' }} 
                     onSubmit={handleDialogueSubmit}
                 >
@@ -82,14 +108,15 @@ export default function NewUserModal(props) {
                         inputLabel="User Type"
                         required={true}
                         options={["Alumni", "CIC Student", "CIC Staff", "Sponsor"]}
+                        value={dialogValue.userType}
                         onChange={(event)=> setDialogValue({
-                            ...initialDialogValue,
-                            userType: event.target.value.toUpperCase().replace(/\s+/g, '_'),
+                            ...dialogValue,
+                            userType: event.target.value,
                         })}
                         autoFocus
                     />
                     {
-                        (!!dialogValue.userType) && (dialogValue.userType !== "SPONSOR") &&
+                        (!!dialogValue.userType) && (dialogValue.userType !== "Sponsor") &&
                         <FormInput
                             id="firstname"
                             inputLabel="First Name"
@@ -99,7 +126,7 @@ export default function NewUserModal(props) {
                         />
                     }
                     {
-                        (!!dialogValue.userType) && (dialogValue.userType !== "SPONSOR") &&
+                        (!!dialogValue.userType) && (dialogValue.userType !== "Sponsor") &&
                         <FormInput
                             id="lastname"
                             inputLabel="Last Name"
@@ -109,7 +136,7 @@ export default function NewUserModal(props) {
                         />
                     }
                     {
-                        (dialogValue.userType === "CIC_STUDENT") && 
+                        (dialogValue.userType === "CIC Student") && 
                         <FormInput
                             id="coopEndDate"
                             inputLabel="Co-op/Work Term End Date"
@@ -120,7 +147,7 @@ export default function NewUserModal(props) {
                         />
                     }
                     {
-                        (dialogValue.userType === "SPONSOR") && 
+                        (dialogValue.userType === "Sponsor") && 
                         <FormInput
                             id="name"
                             inputLabel="Organization/Company Name"
@@ -147,11 +174,11 @@ export default function NewUserModal(props) {
                 </Button>
                 <LoadingButton 
                     loading={loading} 
-                    defaultName={"Add"}
-                    loadingName={"Adding"}
+                    defaultName={localDialogMode === "new" ? "Add": "Edit"}
+                    loadingName={localDialogMode === "new" ? "Adding" : "Editing"}
                     type="submit" 
                     color="primary" 
-                    form="new-user"
+                    form="user-form"
                 />
             </DialogActions>
         </Dialog>

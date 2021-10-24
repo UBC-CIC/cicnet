@@ -8,12 +8,14 @@ enum UserType {
 type User @model {
   id: ID!
   name: String!
+  firstname: String
+  lastname: String
   email: String
   username: String
   userType: UserType!
   confirmed: Boolean
   about: String
-  coopEndDate: String @defaultValue(value: "N/A")
+  coopEndDate: String
   challenges: [String]
 }
 

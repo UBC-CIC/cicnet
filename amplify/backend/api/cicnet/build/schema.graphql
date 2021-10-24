@@ -8,6 +8,8 @@ enum UserType {
 type User {
   id: ID!
   name: String!
+  firstname: String
+  lastname: String
   email: String
   username: String
   userType: UserType!
@@ -143,6 +145,8 @@ input ModelUserTypeInput {
 input ModelUserFilterInput {
   id: ModelIDInput
   name: ModelStringInput
+  firstname: ModelStringInput
+  lastname: ModelStringInput
   email: ModelStringInput
   username: ModelStringInput
   userType: ModelUserTypeInput
@@ -181,6 +185,8 @@ type Query {
 input CreateUserInput {
   id: ID
   name: String!
+  firstname: String
+  lastname: String
   email: String
   username: String
   userType: UserType!
@@ -193,6 +199,8 @@ input CreateUserInput {
 input UpdateUserInput {
   id: ID!
   name: String
+  firstname: String
+  lastname: String
   email: String
   username: String
   userType: UserType
@@ -220,6 +228,8 @@ type Mutation {
 
 input ModelUserConditionInput {
   name: ModelStringInput
+  firstname: ModelStringInput
+  lastname: ModelStringInput
   email: ModelStringInput
   username: ModelStringInput
   userType: ModelUserTypeInput

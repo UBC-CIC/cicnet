@@ -20,7 +20,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import EditIcon from '@material-ui/icons/Edit';
 import { connect, useDispatch } from "react-redux";
-import { getUserList, updateUserStatus } from "../../../Actions/userActions";
+import { getUserList, updateUserInfo } from "../../../Actions/userActions";
 import NewUserModal from "../../../Components/Roles/NewUserModal";
 
 const useStyles = makeStyles(()=> ({
@@ -54,9 +54,9 @@ function Roles(props) {
     const dispatch = useDispatch();
 
     // modal
-    const [openDialogue, handleDialogueOpen] = useState(false);
+    const [dialogueMode, handleDialogueMode] = useState(null);
     const handleDialogueClose = () => {
-        handleDialogueOpen(false);
+        handleDialogueMode(null);
     };
 
     // datagrid
@@ -65,7 +65,10 @@ function Roles(props) {
     const renderConfirmation =  (cellMetadata) => {
         const confirmUser = async (decision) => {
             const user = userList.find((user) => user.id === cellMetadata.id)
-            dispatch(updateUserStatus(user._id, decision))
+            dispatch(updateUserInfo({
+                id: user._id, 
+                confirmed: decision
+            }))
         }
     
         return (
@@ -95,7 +98,15 @@ function Roles(props) {
             <IconButton
                 id={'Edit-' + cellMetadata.id}
                 style={{ display: 'none' }}
-                onClick={()=>handleDialogueOpen(true)}
+                onClick={()=>handleDialogueMode({
+                    id: cellMetadata.row._id,
+                    userType: cellMetadata.row.userType,
+                    name: cellMetadata.row.name,
+                    firstname: cellMetadata.row.firstname, //cellMetadata.row.name.split(" ")[0] : "",
+                    lastname: cellMetadata.row.lastname, //cellMetadata.row.name.split(" ").slice(1).join(" ") : "", // /([^\s])+\s/
+                    email: cellMetadata.row.email,
+                    coopEndDate: cellMetadata.row.coopEndDate
+                })}
             >
                 <EditIcon fontSize="small"/>
             </IconButton>
@@ -129,7 +140,7 @@ function Roles(props) {
             <Button 
                 className={classes.button} 
                 variant="contained" 
-                onClick={()=>handleDialogueOpen(true)}
+                onClick={()=>handleDialogueMode({})}
             >
                 Add User
             </Button>
@@ -165,7 +176,7 @@ function Roles(props) {
             />
         </div>
         <NewUserModal
-            openDialogue={openDialogue}
+            dialogueMode={dialogueMode}
             handleDialogueClose={handleDialogueClose}
         />
         </>

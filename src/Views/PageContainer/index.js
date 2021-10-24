@@ -102,7 +102,7 @@ function PageContainer(props) {
         <div className={classes.toolbar} />
         <Switch>
             <Route exact path={"/challenges"} render={props => <Challenges title="All Challenges" {...props}/>}/>
-            <Route path={"/challenges/create"} render={props => <NewChallenge title="Create New Challenge" {...props}/>} />
+            <Route exact path={"/challenges/create"} render={props => <NewChallenge title="Create New Challenge" {...props}/>} />
             <Route path={"/challenges/:challengeName"} render={props => <ChallengeDetails {...props}/>}/>
             <Route exact path={"/news"} render={props => <News title="News/Events" {...props}/>}/>
             <Route exact path={"/update"} render={props => <NewUpdate title="Update on Challenge" {...props}/>} />

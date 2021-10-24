@@ -6,6 +6,8 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       name
+      firstname
+      lastname
       email
       username
       userType
@@ -28,6 +30,8 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         name
+        firstname
+        lastname
         email
         username
         userType

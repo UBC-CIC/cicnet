@@ -1,5 +1,6 @@
 
 import { API, graphqlOperation } from "aws-amplify";
+
 import { updateUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
 
@@ -38,18 +39,14 @@ export const addNewUser = (payload) => async (dispatch) => {
 
 
 // Updates the user info by staffs & admins
-export const updateUserStatus = (userId, decision) => async (dispatch) => {
-    const updateDetails = {
-        id: userId,
-        confirmed: decision
-    };
+export const updateUserInfo = (info) => async (dispatch) => {
 
-    await API.graphql(graphqlOperation(updateUser, { input: updateDetails }))
+    await API.graphql(graphqlOperation(updateUser, { input: info }))
       .then(data => {
         // if successful, update the room list
         dispatch({
-            type: 'UPDATE_USER_STATUS',
-            payload: updateDetails
+            type: 'UPDATE_USER_INFO',
+            payload: info
         });
       })
       .catch(error => {

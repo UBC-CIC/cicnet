@@ -19,7 +19,6 @@ const userReducer = (currentState = [], action) => {
             return newState;
         }
         case "ADD_NEW_USER": {
-            console.log(action.type)
             const newState = [...currentState,
                 {
                     id: currentState.length,
@@ -38,15 +37,13 @@ const userReducer = (currentState = [], action) => {
             return newState
         }
         case "UPDATE_USER_INFO": {
-            console.log(action.type)
             const index = currentState.findIndex((element) => element._id === action.payload.id);
 
             const newState = [...currentState];
-            newState[index].confirmed = action.payload.confirmed
-            return newState
+            newState[index] = {...newState[index], ...action.payload}
+            return [...newState]
         }
         default:
-            console.log(action.type)
             return currentState
     }
 }

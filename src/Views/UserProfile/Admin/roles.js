@@ -21,7 +21,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import EditIcon from '@material-ui/icons/Edit';
 import { connect, useDispatch } from "react-redux";
 import { getUserList, updateUserInfo } from "../../../Actions/userActions";
-import NewUserModal from "../../../Components/Roles/NewUserModal";
+import NewEditUserModal from "../../../Components/Roles/NewEditUserModal";
 
 const useStyles = makeStyles(()=> ({
     root: {
@@ -175,7 +175,7 @@ function Roles(props) {
                 }}
             />
         </div>
-        <NewUserModal
+        <NewEditUserModal
             dialogueMode={dialogueMode}
             handleDialogueClose={handleDialogueClose}
         />

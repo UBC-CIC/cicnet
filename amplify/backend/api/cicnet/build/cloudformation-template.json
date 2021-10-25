@@ -114,14 +114,13 @@
                         "ApiId"
                     ]
                 },
-                "Description": "Cicnet API key",
                 "Expires": {
                     "Fn::If": [
                         "APIKeyExpirationEpochIsPositive",
                         {
                             "Ref": "APIKeyExpirationEpoch"
                         },
-                        1662569246
+                        1635736295
                     ]
                 }
             },

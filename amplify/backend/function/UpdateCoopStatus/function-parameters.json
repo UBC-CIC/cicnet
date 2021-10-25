@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "api": {
+      "cicnet": [
+        "read",
+        "update"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

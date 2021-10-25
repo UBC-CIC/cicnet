@@ -1,7 +1,6 @@
 const userReducer = (currentState = [], action) => {
     switch(action.type) {
         case "GET_USER_LIST": {
-            console.log(action.type)
             const newState = action.payload.map((element, index) => (
                 {
                     id: index,
@@ -14,7 +13,7 @@ const userReducer = (currentState = [], action) => {
                     confirmed: element.confirmed,
                     challenges: element.challenges,
                     coopEndDate: element.coopEndDate ? element.coopEndDate : "N/A",
-                    createdAt: formatDate(new Date(element.createdAt)),
+                    createdAt: element.createdAt.split("T")[0]
                 }
               ));
             return newState;
@@ -33,7 +32,7 @@ const userReducer = (currentState = [], action) => {
                     confirmed: action.payload.confirmed,
                     challenges: action.payload.challenges,
                     coopEndDate: action.payload.coopEndDate ? action.payload.coopEndDate : "N/A",
-                    createdAt: formatDate(new Date(action.payload.createdAt)),
+                    createdAt: action.payload.createdAt.split("T")[0]
                 }
             ]
             return newState
@@ -53,30 +52,6 @@ const userReducer = (currentState = [], action) => {
 }
 
 export default userReducer;
-
-
-// helpers
-const formatDate = (date) => {
-    const stringDate = date.toString().split(" ").slice(1, 4); // [month, date, year]
-    const month = months.indexOf(stringDate[0]) + 1;
-    return `${stringDate[2]}-${month<10&&'0'}${month}-${stringDate[1]}`
-    // return  month+'/'+parseInt(stringDate[1])+'/'+stringDate[2]
-};
-  
-const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-];
 
 const userTypes = {
     "SPONSOR": 'Sponsor',

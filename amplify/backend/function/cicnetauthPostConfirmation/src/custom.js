@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const ddb = new AWS.DynamoDB() // new AWS.DynamoDB.DocumentClient();
 
 exports.handler = async (event, context, callback) => {
-  let date = new Date();
+  let date = new Date().toISOString();
   console.log(event)
 
   if (event.request.userAttributes.sub) {
@@ -21,8 +21,8 @@ exports.handler = async (event, context, callback) => {
         },
         'email': {S: event.request.userAttributes.email},
         'userType': {S: event.request.userAttributes.profile},
-        'createdAt': {S: date.toISOString()},
-        'updatedAt': {S: date.toISOString()},
+        'createdAt': {S: date},
+        'updatedAt': {S: date},
       }
     };
 

@@ -1,4 +1,6 @@
 {
+    "identityPoolName": "cicnetauth_identitypool_0a6d3c08",
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "cicnet58b25297",
     "userPoolName": "cicnet58b25297_userpool_58b25297",
     "autoVerifiedAttributes": [
@@ -41,7 +43,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "58b25297",
     "resourceName": "cicnetauth",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",

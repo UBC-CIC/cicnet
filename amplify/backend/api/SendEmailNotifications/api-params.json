@@ -1,0 +1,86 @@
+{
+  "paths": [
+    {
+      "name": "/events",
+      "lambdaFunction": "sendEventNotifications",
+      "privacy": {
+        "userPoolGroups": {
+          "Admin": [
+            "/POST",
+            "/GET",
+            "/PUT",
+            "/PATCH",
+            "/DELETE"
+          ],
+          "CICStaff": [
+            "/POST",
+            "/GET",
+            "/PUT",
+            "/PATCH",
+            "/DELETE"
+          ],
+          "CICStudent": [
+            "/POST",
+            "/GET",
+            "/PUT",
+            "/PATCH",
+            "/DELETE"
+          ]
+        }
+      },
+      "policyResourceName": "/events"
+    }
+  ],
+  "resourceName": "SendEmailNotifications",
+  "apiName": "SendEmailNotifications",
+  "authResourceName": "cicnetauth",
+  "functionArns": [
+    {
+      "lambdaFunction": "sendEventNotifications"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-cicnet-dev-114149-authRole",
+    "unAuthRoleName": "amplify-cicnet-dev-114149-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "sendEventNotifications",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "auth",
+      "resourceName": "cicnetauth",
+      "attributes": [
+        "UserPoolId"
+      ]
+    },
+    {
+      "category": "auth",
+      "resourceName": "userPoolGroups",
+      "attributes": [
+        "AdminGroupRole"
+      ]
+    },
+    {
+      "category": "auth",
+      "resourceName": "userPoolGroups",
+      "attributes": [
+        "CICStaffGroupRole"
+      ]
+    },
+    {
+      "category": "auth",
+      "resourceName": "userPoolGroups",
+      "attributes": [
+        "CICStudentGroupRole"
+      ]
+    }
+  ]
+}

@@ -292,7 +292,20 @@ Resources:
   
   # Updating lambda role with permissions to Cognito
   
-  
+  UserPoolPostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: UserPoolPostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - cognito-idp:AdminAddUserToGroup
+            Resource: !GetAtt UserPool.Arn
+      Roles: 
+        - !Ref functioncicnetauthPostConfirmationName
+
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference

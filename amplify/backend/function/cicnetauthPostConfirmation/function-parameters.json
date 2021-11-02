@@ -14,10 +14,11 @@
   "roleName": "cicnetauthPostConfirmation",
   "skipEdit": true,
   "enableCors": false,
-  "environmentVariableList": [
-    {
-      "cloudFormationParameterName": "usertable",
-      "environmentVariableName": "USERTABLE"
+  "permissions": {
+    "storage": {
+      "User:@model(appsync)": [
+        "create"
+      ]
     }
-  ]
+  }
 }

@@ -744,7 +744,7 @@ function Login(props) {
                                                 />
                                             </Grid>
                                         }
-                                        <BackAndSubmitButtons backAction={()=>resetStates("signIn")} submitAction={signUp} submitMessage={"Sign Up"} loadingState={loading}/>
+                                        <BackAndSubmitButtons backAction={()=>resetStates("signIn")} submitAction={signUp} submitMessage={"Sign Up"} loadingState={loading} userType={!formState.userType}/>
                                     </Grid>
                                 </Grid>
                             )
@@ -883,12 +883,12 @@ const SubmitButtonWithLoading = (props) => {
         }
     }));
 
-    const {submitAction, submitMessage, loadingState} = props;
+    const {submitAction, submitMessage, loadingState, ...others} = props;
     const localStyles = styles();
 
 
     return (
-        <SubmitButton variant="contained" disabled={!!loadingState} onClick={submitAction}>
+        <SubmitButton variant="contained" disabled={!!loadingState || others.userType} onClick={submitAction}>
             {submitMessage}
             {/* if it is loading, show the loading indicator */}
             {!!loadingState && <Grid className={localStyles.progress}><CircularProgress size={15}/></Grid>}

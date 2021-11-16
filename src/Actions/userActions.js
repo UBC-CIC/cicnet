@@ -1,8 +1,10 @@
 
-import { API, graphqlOperation } from "aws-amplify";
+import { API, Auth, graphqlOperation } from "aws-amplify";
 
 import { updateUser } from "../graphql/mutations";
 import { listUsers } from "../graphql/queries";
+
+import { userTypes } from "../JsonData/userType";
 
 
 // ===================================---CHANGE USER STATES---=======================================
@@ -38,19 +40,52 @@ export const addNewUser = (payload) => async (dispatch) => {
 }
 
 
-// Updates the user info by staffs & admins
-export const updateUserInfo = (info) => async (dispatch) => {
+// Confirms the status of the user type
+export const updateUserInfoConfirmed = (info) => async (dispatch) => {
 
     await API.graphql(graphqlOperation(updateUser, { input: info }))
-      .then(data => {
+      .then(async (res) => {
+        let apiName = 'AdminQueries';
+        let path = '/transferUserToGroup';
+        let myInit = {
+            body: {
+              "username" : res.data.updateUser.id,
+              "origGroupname": "General", // original group name
+              "newGroupname": userTypes[res.data.updateUser.userType].replace(" ", "") // new group name
+            }, 
+            headers: {
+              'Content-Type' : 'application/json',
+              Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+            } 
+        }
+        await API.post(apiName, path, myInit);
+
         // if successful, update the room list
-        dispatch({
-            type: 'UPDATE_USER_INFO',
-            payload: info
-        });
+        dispatch(updateUserInfoSuccess(info));
       })
       .catch(error => {
         console.log('Error in updating user\'s info', error);
     });
 
+}
+
+// Updates the user info by staffs & admins using the Edit Modal
+export const updateUserInfoAll = (info) => async (dispatch) => {
+
+  await API.graphql(graphqlOperation(updateUser, { input: info }))
+    .then(async (data) => {
+      // if successful, update the room list
+      dispatch(updateUserInfoSuccess(info));
+    })
+    .catch(error => {
+      console.log('Error in updating user\'s info', error);
+  });
+
+}
+
+export const updateUserInfoSuccess = (info) => {
+  return {
+      type: 'UPDATE_USER_INFO',
+      payload: info
+  }
 }

@@ -100,6 +100,23 @@ app.post('/removeUserFromGroup', async (req, res, next) => {
   }
 });
 
+app.post('/transferUserToGroup', async (req, res, next) => {
+  if (!req.body.username || !req.body.origGroupname || !req.body.newGroupname) {
+    const err = new Error('username, origGroupname, newGroupname are required');
+    err.statusCode = 400;
+    return next(err);
+  }
+
+  try {
+    const removeResponse = await removeUserFromGroup(req.body.username, req.body.origGroupname);
+    console.log(removeResponse)
+    const addResponse = await addUserToGroup(req.body.username, req.body.newGroupname);
+    res.status(200).json(addResponse);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post('/confirmUserSignUp', async (req, res, next) => {
   if (!req.body.username) {
     const err = new Error('username is required');

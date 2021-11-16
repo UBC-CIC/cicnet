@@ -1,3 +1,5 @@
+import { userTypes } from "../JsonData/userType";
+
 const userReducer = (currentState = [], action) => {
     switch(action.type) {
         case "GET_USER_LIST": {
@@ -49,10 +51,3 @@ const userReducer = (currentState = [], action) => {
 }
 
 export default userReducer;
-
-const userTypes = {
-    "SPONSOR": 'Sponsor',
-    "CIC_STUDENT": "CIC Student",
-    "CIC_STAFF": "CIC Staff",
-    "ALUMNI": "Alumni"
-};

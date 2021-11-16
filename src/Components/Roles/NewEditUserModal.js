@@ -14,7 +14,7 @@ import { FormInput, FormSelect } from "../Challenges/NewChallenge/InputFields";
 import { createMemberInChallenge } from "../../Views/UserProfile/Admin/roles";
 import { useDispatch } from "react-redux";
 import { LoadingButton } from "../Buttons";
-import { addNewUser, updateUserInfo } from "../../Actions/userActions";
+import { addNewUser, updateUserInfoAll } from "../../Actions/userActions";
 
 
 const useStyles = makeStyles((theme)=> ({
@@ -74,7 +74,7 @@ export default function NewEditUserModal(props) {
             const createdUser = await createMemberInChallenge(userInfo);
             dispatch(addNewUser(createdUser))
         } else { // if === 'edit'
-            dispatch(updateUserInfo({
+            dispatch(updateUserInfoAll({
                 ...userInfo,
                 id: dialogueMode.id
             }))

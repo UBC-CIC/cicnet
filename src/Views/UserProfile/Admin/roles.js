@@ -20,7 +20,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import EditIcon from '@material-ui/icons/Edit';
 import { connect, useDispatch } from "react-redux";
-import { getUserList, updateUserInfo } from "../../../Actions/userActions";
+import { getUserList, updateUserInfoConfirmed } from "../../../Actions/userActions";
 import NewEditUserModal from "../../../Components/Roles/NewEditUserModal";
 
 const useStyles = makeStyles(()=> ({
@@ -65,7 +65,7 @@ function Roles(props) {
     const renderConfirmation =  (cellMetadata) => {
         const confirmUser = async (decision) => {
             const user = userList.find((user) => user.id === cellMetadata.id)
-            dispatch(updateUserInfo({
+            dispatch(updateUserInfoConfirmed({
                 id: user._id, 
                 confirmed: decision
             }))
@@ -121,7 +121,7 @@ function Roles(props) {
         { field: "email", headerName: "Email", width: 250 },
         { field: "challenges", headerName: "Challenges Involved", width: 300 },
         { field: "coopEndDate", headerName: "Co-op/Work Term End Date", width: 250 },
-        { field: "createdAt", headerName: "User Date Created", type: "date", width: 200 },
+        { field: "createdAt", headerName: "User Created On", type: "date", width: 200 },
     ];
 
     // when page first loaded

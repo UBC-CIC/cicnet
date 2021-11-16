@@ -12,7 +12,15 @@
         "precedence": 3
     },
     {
-        "groupName": "General",
+        "groupName": "Sponsor",
         "precedence": 4
+    },
+    {
+        "groupName": "Alumni",
+        "precedence": 5
+    },
+    {
+        "groupName": "General",
+        "precedence": 6
     }
 ]

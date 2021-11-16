@@ -32,6 +32,8 @@ async function addUserInfoInDDB(event, context) {
       Item: {
         'id': {S: event.request.userAttributes.sub},
         '__typename': {S: 'User'},
+        'firstname': {S: event.request.userAttributes.given_name},
+        'lastname': {S: event.request.userAttributes.family_name},
         'name': {
           S: 
           !! event.request.userAttributes.given_name 

@@ -45,20 +45,22 @@ export const updateUserInfoConfirmed = (info) => async (dispatch) => {
 
     await API.graphql(graphqlOperation(updateUser, { input: info }))
       .then(async (res) => {
-        let apiName = 'AdminQueries';
-        let path = '/transferUserToGroup';
-        let myInit = {
-            body: {
-              "username" : res.data.updateUser.id,
-              "origGroupname": "General", // original group name
-              "newGroupname": userTypes[res.data.updateUser.userType].replace(" ", "") // new group name
-            }, 
-            headers: {
-              'Content-Type' : 'application/json',
-              Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-            } 
+        if (info.confirmed === true) {
+          let apiName = 'AdminQueries';
+          let path = '/transferUserToGroup';
+          let myInit = {
+              body: {
+                "username" : res.data.updateUser.id,
+                "origGroupname": "General", // original group name
+                "newGroupname": userTypes[res.data.updateUser.userType].replace(" ", "") // new group name
+              }, 
+              headers: {
+                'Content-Type' : 'application/json',
+                Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+              } 
+          }
+          await API.post(apiName, path, myInit);
         }
-        await API.post(apiName, path, myInit);
 
         // if successful, update the room list
         dispatch(updateUserInfoSuccess(info));

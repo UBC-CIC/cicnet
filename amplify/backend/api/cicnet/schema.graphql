@@ -15,7 +15,7 @@ type User @model {
   userType: UserType!
   confirmed: Boolean
   about: String
-  coopEndDate: String
+  coopEndDate: AWSDate
   challenges: [String]
 }
 

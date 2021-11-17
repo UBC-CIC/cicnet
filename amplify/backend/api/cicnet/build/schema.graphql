@@ -15,7 +15,7 @@ type User {
   userType: UserType!
   confirmed: Boolean
   about: String
-  coopEndDate: String
+  coopEndDate: AWSDate
   challenges: [String]
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
@@ -192,7 +192,7 @@ input CreateUserInput {
   userType: UserType!
   confirmed: Boolean
   about: String
-  coopEndDate: String
+  coopEndDate: AWSDate
   challenges: [String]
 }
 
@@ -206,7 +206,7 @@ input UpdateUserInput {
   userType: UserType
   confirmed: Boolean
   about: String
-  coopEndDate: String
+  coopEndDate: AWSDate
   challenges: [String]
 }
 

@@ -157,6 +157,21 @@
             "GraphQLAPIEndpointOutput",
             "GraphQLAPIKeyOutput"
           ]
+        },
+        {
+          "category": "api",
+          "resourceName": "SendEmailNotifications",
+          "attributes": [
+            "ApiName",
+            "ApiId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "cicnetauth",
+          "attributes": [
+            "UserPoolId"
+          ]
         }
       ]
     },

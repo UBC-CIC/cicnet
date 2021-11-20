@@ -2,6 +2,9 @@
 	API_CICNET_GRAPHQLAPIENDPOINTOUTPUT
 	API_CICNET_GRAPHQLAPIIDOUTPUT
 	API_CICNET_GRAPHQLAPIKEYOUTPUT
+	API_SENDEMAILNOTIFICATIONS_APIID
+	API_SENDEMAILNOTIFICATIONS_APINAME
+	AUTH_CICNETAUTH_USERPOOLID
 	ENV
 	REGION
 Amplify Params - DO NOT EDIT */
@@ -11,13 +14,16 @@ const gql = require('graphql-tag');
 const graphql = require('graphql');
 const { print } = graphql;
 
+const { CognitoIdentityServiceProvider } = require('aws-sdk');
+const cognitoIdentityServiceProvider = new CognitoIdentityServiceProvider();
+
 const dateToday = new Date().toISOString().split("T")[0];
 console.log("today's date", dateToday)
 const listCICStudents = gql`
     query ListUsers {
         listUsers(filter: {
-            coopEndDate: {eq: "${dateToday}"}, 
-            userType: {ne: ALUMNI}
+            coopEndDate: { le: "${dateToday}"}, 
+            userType: { ne: ${process.env.ALUMNI_USERTYPE} }
         }) {
             items {
                 id
@@ -36,8 +42,29 @@ const updateStudentRole = gql`
     }
 `
 
+async function transferUserToGroup(id) {
+    const params = {
+      UserPoolId: process.env.AUTH_CICNETAUTH_USERPOOLID,
+      Username: id,
+    };
+  
+    try {
+        await cognitoIdentityServiceProvider.adminRemoveUserFromGroup({
+            ...params,
+            GroupName: process.env.STUDENT_USERPOOL_GROUPNAME,
+        }).promise();
+
+        await cognitoIdentityServiceProvider.adminAddUserToGroup({
+            ...params,
+            GroupName: process.env.ALUMNI_USERPOOL_GROUPNAME,
+        }).promise();
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
 exports.handler = async (event) => {
-    // TODO implement
     try {
         // 1. query CIC Students that need to be updated
         const CICStudentsToUpdate = await axios({
@@ -68,12 +95,17 @@ exports.handler = async (event) => {
                         variables: {
                             input: {
                                 id: student.id,
-                                userType: "ALUMNI"
+                                userType: process.env.ALUMNI_USERTYPE
                             }
                         }
                     }
-                });
-                
+                })
+                .then(async(res) => {
+                    console.log("resolution", res)
+                    await(transferUserToGroup(student.id))
+                }).catch((err) => {
+                    throw new Error("Received Error:", err);
+                })
             })
         )
 

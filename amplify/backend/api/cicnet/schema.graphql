@@ -10,7 +10,7 @@ type User @model {
   name: String!
   firstname: String
   lastname: String
-  email: String
+  email: AWSEmail
   username: String
   userType: UserType!
   confirmed: Boolean
@@ -47,5 +47,5 @@ type Post @model
   postType: PostType
   challengeID: ID!
   challenge: Challenge @connection(fields: ["challengeID"])
-  createdAt: String!
+  createdAt: AWSDateTime!
 }

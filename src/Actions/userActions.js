@@ -51,8 +51,8 @@ export const updateUserInfoConfirmed = (info) => async (dispatch) => {
           let myInit = {
               body: {
                 "username" : res.data.updateUser.id,
-                "origGroupname": "General", // original group name
-                "newGroupname": userTypes[res.data.updateUser.userType].replace(" ", "") // new group name
+                "origGroupname": process.env.REACT_APP_INITIALUSERPOOLGROUPNAME,
+                "newGroupname": userTypes[res.data.updateUser.userType].replace(" ", "")
               }, 
               headers: {
                 'Content-Type' : 'application/json',

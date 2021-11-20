@@ -10,7 +10,7 @@ type User {
   name: String!
   firstname: String
   lastname: String
-  email: String
+  email: AWSEmail
   username: String
   userType: UserType!
   confirmed: Boolean
@@ -50,7 +50,7 @@ type Post {
   postType: PostType
   challengeID: ID!
   challenge: Challenge
-  createdAt: String!
+  createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
 
@@ -187,7 +187,7 @@ input CreateUserInput {
   name: String!
   firstname: String
   lastname: String
-  email: String
+  email: AWSEmail
   username: String
   userType: UserType!
   confirmed: Boolean
@@ -201,7 +201,7 @@ input UpdateUserInput {
   name: String
   firstname: String
   lastname: String
-  email: String
+  email: AWSEmail
   username: String
   userType: UserType
   confirmed: Boolean
@@ -350,7 +350,7 @@ input CreatePostInput {
   content: String!
   postType: PostType
   challengeID: ID!
-  createdAt: String
+  createdAt: AWSDateTime
 }
 
 input UpdatePostInput {
@@ -360,7 +360,7 @@ input UpdatePostInput {
   content: String
   postType: PostType
   challengeID: ID
-  createdAt: String
+  createdAt: AWSDateTime
 }
 
 input DeletePostInput {

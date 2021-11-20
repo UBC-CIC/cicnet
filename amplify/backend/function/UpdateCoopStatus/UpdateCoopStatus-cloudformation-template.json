@@ -27,6 +27,27 @@
     "apicicnetGraphQLAPIKeyOutput": {
       "Type": "String",
       "Default": "apicicnetGraphQLAPIKeyOutput"
+    },
+    "apiSendEmailNotificationsApiName": {
+      "Type": "String",
+      "Default": "apiSendEmailNotificationsApiName"
+    },
+    "apiSendEmailNotificationsApiId": {
+      "Type": "String",
+      "Default": "apiSendEmailNotificationsApiId"
+    },
+    "alumniUsertype": {
+      "Type": "String"
+    },
+    "studentUserpoolGroupname": {
+      "Type": "String"
+    },
+    "alumniUserpoolGroupname": {
+      "Type": "String"
+    },
+    "authcicnetauthUserPoolId": {
+      "Type": "String",
+      "Default": "authcicnetauthUserPoolId"
     }
   },
   "Conditions": {
@@ -90,6 +111,24 @@
             },
             "API_CICNET_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apicicnetGraphQLAPIKeyOutput"
+            },
+            "API_SENDEMAILNOTIFICATIONS_APINAME": {
+              "Ref": "apiSendEmailNotificationsApiName"
+            },
+            "API_SENDEMAILNOTIFICATIONS_APIID": {
+              "Ref": "apiSendEmailNotificationsApiId"
+            },
+            "AUTH_CICNETAUTH_USERPOOLID": {
+              "Ref": "authcicnetauthUserPoolId"
+            },
+            "ALUMNI_USERTYPE": {
+              "Ref": "alumniUsertype"
+            },
+            "ALUMNI_USERPOOL_GROUPNAME": {
+              "Ref": "alumniUserpoolGroupname"
+            },
+            "STUDENT_USERPOOL_GROUPNAME": {
+              "Ref": "studentUserpoolGroupname"
             }
           }
         },
@@ -224,6 +263,59 @@
                       ":apis/",
                       {
                         "Ref": "apicicnetGraphQLAPIIdOutput"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "apigateway:POST",
+                "apigateway:PUT"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "::/restapis/",
+                      {
+                        "Ref": "apiSendEmailNotificationsApiName"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:AdminRemoveUserFromGroup",
+                "cognito-idp:AdminAddUserToGroup"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:cognito-idp:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":userpool/",
+                      {
+                        "Ref": "authcicnetauthUserPoolId"
                       }
                     ]
                   ]

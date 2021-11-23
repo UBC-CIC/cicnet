@@ -2,7 +2,7 @@
   "paths": [
     {
       "name": "/events",
-      "lambdaFunction": "sendEventNotifications",
+      "lambdaFunction": "sendEmailNotification",
       "privacy": {
         "userPoolGroups": {
           "Admin": [
@@ -36,7 +36,7 @@
   "authResourceName": "cicnetauth",
   "functionArns": [
     {
-      "lambdaFunction": "sendEventNotifications"
+      "lambdaFunction": "sendEmailNotification"
     }
   ],
   "privacy": {
@@ -48,7 +48,7 @@
   "dependsOn": [
     {
       "category": "function",
-      "resourceName": "sendEventNotifications",
+      "resourceName": "sendEmailNotification",
       "attributes": [
         "Name",
         "Arn"

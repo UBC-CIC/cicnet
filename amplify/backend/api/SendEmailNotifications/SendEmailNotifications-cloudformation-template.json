@@ -8,15 +8,15 @@
         },
     
     
-          "functionsendEventNotificationsName": {
+          "functionsendEmailNotificationName": {
             "Type": "String",
-            "Default": "functionsendEventNotificationsName"
+            "Default": "functionsendEmailNotificationName"
           },
 
           
-          "functionsendEventNotificationsArn": {
+          "functionsendEmailNotificationArn": {
             "Type": "String",
-            "Default": "functionsendEventNotificationsArn"
+            "Default": "functionsendEmailNotificationArn"
           },
 
           
@@ -1307,7 +1307,7 @@
                             
                             {
 
-                                "Ref": "functionsendEventNotificationsArn"
+                                "Ref": "functionsendEmailNotificationArn"
                             },
                             
                             "/invocations"
@@ -1412,7 +1412,7 @@
                           
                           {
 
-                            "Ref": "functionsendEventNotificationsArn"
+                            "Ref": "functionsendEmailNotificationArn"
                           },
                           
                           "/invocations"
@@ -1469,12 +1469,12 @@
       
         
 
-        "functionsendEventNotificationsPermissionSendEmailNotifications": {
+        "functionsendEmailNotificationPermissionSendEmailNotifications": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functionsendEventNotificationsName"
+                        "Ref":  "functionsendEmailNotificationName"
                     },
                     
                     "Action": "lambda:InvokeFunction",

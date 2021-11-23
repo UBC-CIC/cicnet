@@ -44,7 +44,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "sendEventNotifications",
+          "resourceName": "sendEmailNotification",
           "attributes": [
             "Name",
             "Arn"
@@ -175,7 +175,7 @@
         }
       ]
     },
-    "sendEventNotifications": {
+    "sendEmailNotification": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

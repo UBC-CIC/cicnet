@@ -8,7 +8,7 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDays": 365,
               "description": ""
             }
           },
@@ -156,14 +156,6 @@
             "GraphQLAPIIdOutput",
             "GraphQLAPIEndpointOutput",
             "GraphQLAPIKeyOutput"
-          ]
-        },
-        {
-          "category": "api",
-          "resourceName": "SendEmailNotifications",
-          "attributes": [
-            "ApiName",
-            "ApiId"
           ]
         },
         {

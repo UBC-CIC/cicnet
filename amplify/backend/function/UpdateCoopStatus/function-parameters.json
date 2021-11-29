@@ -4,14 +4,12 @@
       "cicnet": [
         "read",
         "update"
-      ],
-      "SendEmailNotifications": [
-        "create"
       ]
     },
     "auth": {
       "cicnetauth": [
-        "read"
+        "create",
+        "delete"
       ]
     }
   },
@@ -28,6 +26,10 @@
     {
       "cloudFormationParameterName": "studentUserpoolGroupname",
       "environmentVariableName": "STUDENT_USERPOOL_GROUPNAME"
+    },
+    {
+      "cloudFormationParameterName": "sourceEmail",
+      "environmentVariableName": "SOURCE_EMAIL"
     }
   ]
 }

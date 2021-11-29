@@ -16,26 +16,6 @@
     "s3Key": {
       "Type": "String"
     },
-    "apicicnetGraphQLAPIIdOutput": {
-      "Type": "String",
-      "Default": "apicicnetGraphQLAPIIdOutput"
-    },
-    "apicicnetGraphQLAPIEndpointOutput": {
-      "Type": "String",
-      "Default": "apicicnetGraphQLAPIEndpointOutput"
-    },
-    "apicicnetGraphQLAPIKeyOutput": {
-      "Type": "String",
-      "Default": "apicicnetGraphQLAPIKeyOutput"
-    },
-    "apiSendEmailNotificationsApiName": {
-      "Type": "String",
-      "Default": "apiSendEmailNotificationsApiName"
-    },
-    "apiSendEmailNotificationsApiId": {
-      "Type": "String",
-      "Default": "apiSendEmailNotificationsApiId"
-    },
     "alumniUsertype": {
       "Type": "String"
     },
@@ -48,6 +28,21 @@
     "authcicnetauthUserPoolId": {
       "Type": "String",
       "Default": "authcicnetauthUserPoolId"
+    },
+    "sourceEmail": {
+      "Type": "String"
+    },
+    "apicicnetGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apicicnetGraphQLAPIIdOutput"
+    },
+    "apicicnetGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apicicnetGraphQLAPIEndpointOutput"
+    },
+    "apicicnetGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "apicicnetGraphQLAPIKeyOutput"
     }
   },
   "Conditions": {
@@ -103,6 +98,9 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
+            "AUTH_CICNETAUTH_USERPOOLID": {
+              "Ref": "authcicnetauthUserPoolId"
+            },
             "API_CICNET_GRAPHQLAPIIDOUTPUT": {
               "Ref": "apicicnetGraphQLAPIIdOutput"
             },
@@ -112,15 +110,6 @@
             "API_CICNET_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apicicnetGraphQLAPIKeyOutput"
             },
-            "API_SENDEMAILNOTIFICATIONS_APINAME": {
-              "Ref": "apiSendEmailNotificationsApiName"
-            },
-            "API_SENDEMAILNOTIFICATIONS_APIID": {
-              "Ref": "apiSendEmailNotificationsApiId"
-            },
-            "AUTH_CICNETAUTH_USERPOOLID": {
-              "Ref": "authcicnetauthUserPoolId"
-            },
             "ALUMNI_USERTYPE": {
               "Ref": "alumniUsertype"
             },
@@ -129,6 +118,9 @@
             },
             "STUDENT_USERPOOL_GROUPNAME": {
               "Ref": "studentUserpoolGroupname"
+            },
+            "SOURCE_EMAIL": {
+              "Ref": "sourceEmail"
             }
           }
         },
@@ -220,6 +212,14 @@
                   }
                 ]
               }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+              ],
+              "Resource": "*"
             }
           ]
         }
@@ -272,33 +272,61 @@
             {
               "Effect": "Allow",
               "Action": [
-                "apigateway:POST",
-                "apigateway:PUT"
-              ],
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      "::/restapis/",
-                      {
-                        "Ref": "apiSendEmailNotificationsApiName"
-                      },
-                      "/*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
+                "cognito-idp:ConfirmSignUp",
+                "cognito-idp:AdminCreateUser",
+                "cognito-idp:CreateUserImportJob",
+                "cognito-idp:AdminSetUserSettings",
+                "cognito-idp:AdminLinkProviderForUser",
+                "cognito-idp:CreateIdentityProvider",
+                "cognito-idp:AdminConfirmSignUp",
+                "cognito-idp:AdminDisableUser",
                 "cognito-idp:AdminRemoveUserFromGroup",
-                "cognito-idp:AdminAddUserToGroup"
+                "cognito-idp:SetUserMFAPreference",
+                "cognito-idp:SetUICustomization",
+                "cognito-idp:SignUp",
+                "cognito-idp:VerifyUserAttribute",
+                "cognito-idp:SetRiskConfiguration",
+                "cognito-idp:StartUserImportJob",
+                "cognito-idp:AdminSetUserPassword",
+                "cognito-idp:AssociateSoftwareToken",
+                "cognito-idp:CreateResourceServer",
+                "cognito-idp:RespondToAuthChallenge",
+                "cognito-idp:CreateUserPoolClient",
+                "cognito-idp:AdminUserGlobalSignOut",
+                "cognito-idp:GlobalSignOut",
+                "cognito-idp:AddCustomAttributes",
+                "cognito-idp:CreateGroup",
+                "cognito-idp:CreateUserPool",
+                "cognito-idp:AdminForgetDevice",
+                "cognito-idp:AdminAddUserToGroup",
+                "cognito-idp:AdminRespondToAuthChallenge",
+                "cognito-idp:ForgetDevice",
+                "cognito-idp:CreateUserPoolDomain",
+                "cognito-idp:AdminEnableUser",
+                "cognito-idp:AdminUpdateDeviceStatus",
+                "cognito-idp:StopUserImportJob",
+                "cognito-idp:InitiateAuth",
+                "cognito-idp:AdminInitiateAuth",
+                "cognito-idp:AdminSetUserMFAPreference",
+                "cognito-idp:ConfirmForgotPassword",
+                "cognito-idp:SetUserSettings",
+                "cognito-idp:VerifySoftwareToken",
+                "cognito-idp:AdminDisableProviderForUser",
+                "cognito-idp:SetUserPoolMfaConfig",
+                "cognito-idp:ChangePassword",
+                "cognito-idp:ConfirmDevice",
+                "cognito-idp:AdminResetUserPassword",
+                "cognito-idp:ResendConfirmationCode",
+                "cognito-idp:DeleteUserPoolDomain",
+                "cognito-idp:DeleteResourceServer",
+                "cognito-idp:DeleteGroup",
+                "cognito-idp:AdminDeleteUserAttributes",
+                "cognito-idp:DeleteUserPoolClient",
+                "cognito-idp:DeleteUserAttributes",
+                "cognito-idp:DeleteUserPool",
+                "cognito-idp:AdminDeleteUser",
+                "cognito-idp:DeleteIdentityProvider",
+                "cognito-idp:DeleteUser"
               ],
               "Resource": [
                 {

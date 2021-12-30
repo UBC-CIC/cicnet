@@ -99,7 +99,7 @@ function NavBar(props) {
             </div>
             <div>
                 <h4>
-                  CICNet Admin
+                  CICNET Admin
                 </h4>
             </div>
         </div>

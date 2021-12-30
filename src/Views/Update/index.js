@@ -38,7 +38,6 @@ export default function NewUpdate(props) {
         postType: 'UPDATE',
     });
     const [loading, setLoading] = useState(false);
-    const [defaultChallenge, setDefaultChallenge] = useState("");
 
     
     useEffect(() => {
@@ -54,7 +53,7 @@ export default function NewUpdate(props) {
     }, []);
 
     const getChallenge = () => {
-        props.location.state && setDefaultChallenge(props.location.state.challengeName);
+        !!props.location.state && setFormInfo({...formInfo, 'challenge': props.location.state.challengeName});
     }
 
     const handleChange = (event) => {
@@ -81,6 +80,8 @@ export default function NewUpdate(props) {
             await createPostFunction();
             event.target.reset()
             setLoading(false);
+            // console.log(`/challenges/${formInfo.challenge.replace(/\s+/g, '-')}`)
+            // props.history.push(`/challenges/${formInfo.challenge.replace(/\s+/g, '-')}`);
             props.history.push('/challenges');
 
         } catch (e) {
@@ -124,7 +125,7 @@ export default function NewUpdate(props) {
                     inputLabel={"Challenge Name"} 
                     required={true}
                     handleChange={handleChange}
-                    defaultValue={defaultChallenge}
+                    defaultValue={formInfo.challenge}
                 />
                 <FormInput 
                     id={"content"} 

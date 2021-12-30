@@ -56,7 +56,7 @@ function App(props) {
                             * [disableSignUp: true, false]
                             * */
                             <Login logo={"custom"} type={"image"} themeColor={"standard"} animateTitle={true}
-                                   title={"CIC React Login Template"} darkMode={true}
+                                   title={"CICNET"} darkMode={true}
                                    disableSignUp={false}
                             />
                         )

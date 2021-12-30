@@ -83,7 +83,7 @@ export default function NewChallenge(props) {
                 await createMemberInChallenge(
                     {
                         name: sponsor.name, 
-                        email: sponsor.email, 
+                        email: !sponsor.email.trim() ? undefined: sponsor.email.trim(), 
                         userType: 'SPONSOR'
                     }
                 );
@@ -92,7 +92,7 @@ export default function NewChallenge(props) {
                 await createMemberInChallenge(
                     {
                         name: student.name, 
-                        email: student.email, 
+                        email: !student.email.trim() ? undefined : student.email.trim(), 
                         userType: 'CIC_STUDENT'
                     }
                 );
@@ -101,7 +101,7 @@ export default function NewChallenge(props) {
                 await createMemberInChallenge(
                     {
                         name: staff.name, 
-                        email: staff.email, 
+                        email: !staff.email.trim() ? undefined : staff.email.trim(), 
                         userType: 'CIC_STAFF'
                     }
                 );

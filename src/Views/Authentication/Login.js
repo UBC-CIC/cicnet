@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     marginHorizontal: {
         margin: theme.spacing(4, 'auto')
     },
+    marginVertical: {
+        margin: theme.spacing(2.5, 0)
+    },
     padding: {
         padding: theme.spacing(1.5)
     },
@@ -76,6 +79,11 @@ const useStyles = makeStyles((theme) => ({
     centerBox: {
         justifyContent: "center",
         alignItems: "center"
+    },
+    titleLogo: {
+        [theme.breakpoints.up('md')]: {
+            marginBottom: '27vh'
+        },
     }
 }));
 
@@ -452,8 +460,8 @@ function Login(props) {
                         <source src={process.env.PUBLIC_URL + "/Assets/Videos/video.mp4"} type="video/mp4" />
                     </video>
                     : null}
-                <Grid container item xs={12} md={6} className={`page-info ${classes.centerBox}`}>
-                    <Grid container item justify={"space-evenly"} alignItems={"center"} /*style={{height: "60vh"}}*/>
+                <Grid container item xs={12} md={6} className={`page-info ${classes.centerBox} ${classes.titleLogo}`}>
+                    <Grid container item justifyContent={"space-evenly"} alignItems={"center"} /*style={{height: "60vh"}}*/>
                         <Grid xs item className={`typewriter ${classes.marginHorizontal}`}> 
                             <p className={`${classes.textAlignCenter} ${(animateTitle) ? 
                                 (darkMode) ? "line anim-typewriter" : "line anim-typewriter-light lightMode" 
@@ -471,7 +479,7 @@ function Login(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <GridBody container item xs={12} sm={7} md={5} className={`login-container ${classes.centerBox}`}>
+                <GridBody container item xs={12} sm={7} md={5} className={`login-container ${classes.centerBox} ${classes.marginVertical}`}>
                     <Grid container item direction={"column"} xs={12} sm={11} md={9} className={"login-box"}>
                         <Grid className={"login-wrapper-top"}>
                             <span className={"login-wrapper-top-header"}>

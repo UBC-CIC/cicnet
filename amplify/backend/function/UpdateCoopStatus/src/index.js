@@ -23,7 +23,7 @@ console.log("today's date", dateToday)
 const listCICStudents = gql`
     query ListUsers {
         listUsers(filter: {
-            coopEndDate: { le: "${dateToday}"}, 
+            coopEndDate: { lt: "${dateToday}"}, 
             userType: { ne: ${process.env.ALUMNI_USERTYPE} }
         }) {
             items {
@@ -141,7 +141,7 @@ function sendEmails(emailList) {
                 Text: { Data: `Test ses on ${new Date()}` },
             },
 
-            Subject: { Data: "Test Email CICNet" },
+            Subject: { Data: "Test Email CICNET" },
         },
         Source: process.env.SOURCE_EMAIL,
     };

@@ -1,86 +1,102 @@
 {
-  "paths": [
-    {
-      "name": "/events",
-      "lambdaFunction": "sendEmailNotification",
-      "privacy": {
-        "userPoolGroups": {
-          "Admin": [
-            "/POST",
-            "/GET",
-            "/PUT",
-            "/PATCH",
-            "/DELETE"
-          ],
-          "CICStaff": [
-            "/POST",
-            "/GET",
-            "/PUT",
-            "/PATCH",
-            "/DELETE"
-          ],
-          "CICStudent": [
-            "/POST",
-            "/GET",
-            "/PUT",
-            "/PATCH",
-            "/DELETE"
-          ]
+    "paths": [
+        {
+            "name": "/events",
+            "lambdaFunction": "sendEmailNotification",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ],
+                    "CICStaff": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ],
+                    "CICStudent": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH",
+                        "/DELETE"
+                    ]
+                }
+            },
+            "policyResourceName": "/events"
+        },
+        {
+            "name": "/statusUpdate",
+            "lambdaFunction": "sendEmailNotification",
+            "privacy": {
+                "userPoolGroups": {
+                    "Admin": [
+                        "/POST"
+                    ],
+                    "CICStaff": [
+                        "/POST"
+                    ]
+                }
+            },
+            "policyResourceName": "/statusUpdate"
         }
-      },
-      "policyResourceName": "/events"
-    }
-  ],
-  "resourceName": "SendEmailNotifications",
-  "apiName": "SendEmailNotifications",
-  "authResourceName": "cicnetauth",
-  "functionArns": [
-    {
-      "lambdaFunction": "sendEmailNotification"
-    }
-  ],
-  "privacy": {
-    "auth": 0,
-    "unauth": 0,
-    "authRoleName": "amplify-cicnet-dev-114149-authRole",
-    "unAuthRoleName": "amplify-cicnet-dev-114149-unauthRole"
-  },
-  "dependsOn": [
-    {
-      "category": "function",
-      "resourceName": "sendEmailNotification",
-      "attributes": [
-        "Name",
-        "Arn"
-      ]
+    ],
+    "resourceName": "SendEmailNotifications",
+    "apiName": "SendEmailNotifications",
+    "authResourceName": "cicnetauth",
+    "functionArns": [
+        {
+            "lambdaFunction": "sendEmailNotification"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-cicnet-dev-114149-authRole",
+        "unAuthRoleName": "amplify-cicnet-dev-114149-unauthRole"
     },
-    {
-      "category": "auth",
-      "resourceName": "cicnetauth",
-      "attributes": [
-        "UserPoolId"
-      ]
-    },
-    {
-      "category": "auth",
-      "resourceName": "userPoolGroups",
-      "attributes": [
-        "AdminGroupRole"
-      ]
-    },
-    {
-      "category": "auth",
-      "resourceName": "userPoolGroups",
-      "attributes": [
-        "CICStaffGroupRole"
-      ]
-    },
-    {
-      "category": "auth",
-      "resourceName": "userPoolGroups",
-      "attributes": [
-        "CICStudentGroupRole"
-      ]
-    }
-  ]
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "sendEmailNotification",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "cicnetauth",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "AdminGroupRole"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "CICStaffGroupRole"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "CICStudentGroupRole"
+            ]
+        }
+    ],
+    "uuid": "422780f5"
 }

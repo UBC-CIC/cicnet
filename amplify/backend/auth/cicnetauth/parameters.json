@@ -12,8 +12,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code for CICNet",
-    "emailVerificationMessage": "Your verification code for CICNet is {####}",
+    "emailVerificationSubject": "Your verification code for CICNET",
+    "emailVerificationMessage": "Your verification code for CICNET is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [

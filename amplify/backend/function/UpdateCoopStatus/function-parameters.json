@@ -14,22 +14,5 @@
     }
   },
   "lambdaLayers": [],
-  "environmentVariableList": [
-    {
-      "cloudFormationParameterName": "alumniUsertype",
-      "environmentVariableName": "ALUMNI_USERTYPE"
-    },
-    {
-      "cloudFormationParameterName": "alumniUserpoolGroupname",
-      "environmentVariableName": "ALUMNI_USERPOOL_GROUPNAME"
-    },
-    {
-      "cloudFormationParameterName": "studentUserpoolGroupname",
-      "environmentVariableName": "STUDENT_USERPOOL_GROUPNAME"
-    },
-    {
-      "cloudFormationParameterName": "sourceEmail",
-      "environmentVariableName": "SOURCE_EMAIL"
-    }
-  ]
+  "environmentVariableList": []
 }

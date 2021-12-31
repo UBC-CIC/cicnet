@@ -16,21 +16,9 @@
     "s3Key": {
       "Type": "String"
     },
-    "alumniUsertype": {
-      "Type": "String"
-    },
-    "studentUserpoolGroupname": {
-      "Type": "String"
-    },
-    "alumniUserpoolGroupname": {
-      "Type": "String"
-    },
     "authcicnetauthUserPoolId": {
       "Type": "String",
       "Default": "authcicnetauthUserPoolId"
-    },
-    "sourceEmail": {
-      "Type": "String"
     },
     "apicicnetGraphQLAPIIdOutput": {
       "Type": "String",
@@ -109,18 +97,6 @@
             },
             "API_CICNET_GRAPHQLAPIKEYOUTPUT": {
               "Ref": "apicicnetGraphQLAPIKeyOutput"
-            },
-            "ALUMNI_USERTYPE": {
-              "Ref": "alumniUsertype"
-            },
-            "ALUMNI_USERPOOL_GROUPNAME": {
-              "Ref": "alumniUserpoolGroupname"
-            },
-            "STUDENT_USERPOOL_GROUPNAME": {
-              "Ref": "studentUserpoolGroupname"
-            },
-            "SOURCE_EMAIL": {
-              "Ref": "sourceEmail"
             }
           }
         },

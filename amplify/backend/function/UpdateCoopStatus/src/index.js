@@ -24,7 +24,7 @@ const listCICStudents = gql`
     query ListUsers {
         listUsers(filter: {
             coopEndDate: { lt: "${dateToday}"}, 
-            userType: { ne: ${process.env.ALUMNI_USERTYPE} }
+            userType: { ne: "ALUMNI" }
         }) {
             items {
                 id
@@ -76,7 +76,7 @@ exports.handler = async (event) => {
                         variables: {
                             input: {
                                 id: student.id,
-                                userType: process.env.ALUMNI_USERTYPE
+                                userType: "ALUMNI"
                             }
                         }
                     }
@@ -117,12 +117,12 @@ async function transferUserToGroup(id) {
     try {
         await cognitoIdentityServiceProvider.adminRemoveUserFromGroup({
             ...params,
-            GroupName: process.env.STUDENT_USERPOOL_GROUPNAME,
+            GroupName: "CICStudent",
         }).promise();
 
         await cognitoIdentityServiceProvider.adminAddUserToGroup({
             ...params,
-            GroupName: process.env.ALUMNI_USERPOOL_GROUPNAME,
+            GroupName: "Alumni",
         }).promise();
     } catch (err) {
         console.log(err);

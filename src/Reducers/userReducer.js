@@ -42,7 +42,11 @@ const userReducer = (currentState = [], action) => {
             const index = currentState.findIndex((element) => element._id === action.payload.id);
 
             const newState = [...currentState];
-            newState[index] = {...newState[index], ...action.payload}
+            newState[index] = {
+                ...newState[index],
+                ...action.payload,
+                userType: userTypes[action.payload.userType]
+            }
             return [...newState]
         }
         default:

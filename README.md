@@ -4,7 +4,7 @@ This prototype will be used as an internal social network for the CIC. CIC Alumn
 
 ## Stack
 
-* **Front-end** ReactJS is used, Argon Dashboard is used for the UI, with Amplify to use AWS Resources
+* **Front-end** ReactJS is used with Redux, MaterialUI is used for the UI, with Amplify to use AWS Resources
 
 * **Database** Data saved on DynamoDB
 
@@ -14,8 +14,14 @@ This prototype will be used as an internal social network for the CIC. CIC Alumn
 
 <img src= "./images/diagram (1).png">
 
-# User Guide 
-The user guide can be found here [User Guide](./doc/user_guide.md)
+# Guides
+- [User Guide](./doc/user_guide.md)
+- [Amplify Backend API/Functions](./doc/amplify_backend.md)
+- [Deployment Guide](./doc/deployment_guide.md)
+
+# Other Information
+- [Tasks](./doc/tasks.md)
+- [Changelog](./doc/changelog.md)
 
 # License 
 This project is distributed under [MIT](./LICENSE.md)

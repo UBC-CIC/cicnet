@@ -6,12 +6,16 @@ This user guide contains a brief tutorial to get you started using CICNET
 ## Logging In and Account Creation
 
 1 - When first opening the application, you will be greeted with the login screen.
+
 <img src="./images/login_page.png" width="400"/>
 
 
-2.1 - If you have not yet created an account, please click **CREATE AN ACCOUNT**. You will be asked to select a user type. There are four types: Alumni, CIC Student, CIC Staff, and Sponsor. Choose the one that describe your role.<img src="./images/create_account_type.png" width="400"/>
+2.1 - If you have not yet created an account, please click **CREATE AN ACCOUNT**. You will be asked to select a user type. There are four types: Alumni, CIC Student, CIC Staff, and Sponsor. Choose the one that describe your role.
+
+<img src="./images/create_account_type.png" width="400"/>
 
 2.2 - Enter your user information and click **SIGN UP**.
+
 <img src="./images/create_account_info.png" width="400"/>
 
 2.3 - Enter the confirmation code that you receive in your email.
@@ -61,6 +65,7 @@ Each challenge component shows the name of the challenge, the description, and a
 - Addition Links: add links that are related to this challenge
 
 1.2.3) Once done filling out the form, click on **CREATE CHALLENGE**. A filled-in form can look like this.
+
 <img src="./images/create_challenge_filled.png" width="400"/>
 
 ### 1.3) Individual Challenges Page

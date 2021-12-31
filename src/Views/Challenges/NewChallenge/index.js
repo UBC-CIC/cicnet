@@ -79,12 +79,14 @@ export default function NewChallenge(props) {
 
             setLoading(true);
 
+            // if (newSponsors.length)
             await Promise.all(newSponsors.map(async (sponsor) => {
                 await createMemberInChallenge(
                     {
                         name: sponsor.name, 
                         email: !sponsor.email.trim() ? undefined: sponsor.email.trim(), 
-                        userType: 'SPONSOR'
+                        userType: 'SPONSOR',
+                        challenges: [formInfo.title]
                     }
                 );
             }))
@@ -93,7 +95,8 @@ export default function NewChallenge(props) {
                     {
                         name: student.name, 
                         email: !student.email.trim() ? undefined : student.email.trim(), 
-                        userType: 'CIC_STUDENT'
+                        userType: 'CIC_STUDENT',
+                        challenges: [formInfo.title]
                     }
                 );
             }))
@@ -102,7 +105,8 @@ export default function NewChallenge(props) {
                     {
                         name: staff.name, 
                         email: !staff.email.trim() ? undefined : staff.email.trim(), 
-                        userType: 'CIC_STAFF'
+                        userType: 'CIC_STAFF',
+                        challenges: [formInfo.title]
                     }
                 );
             }))

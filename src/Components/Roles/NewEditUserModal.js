@@ -56,7 +56,7 @@ export default function NewEditUserModal(props) {
         const userInfo = dialogValue.userType === "Sponsor" ? 
         {
             name: dialogValue.name, 
-            email: dialogValue.email, 
+            email: !dialogValue.email.trim() ? undefined : dialogValue.email.trim(), 
             userType: dialogValue.userType.toUpperCase().replace(/\s+/g, '_'),
         }
         :
@@ -64,9 +64,9 @@ export default function NewEditUserModal(props) {
             name: `${dialogValue.firstname} ${dialogValue.lastname}`, 
             firstname: dialogValue.firstname,
             lastname: dialogValue.lastname,
-            email: dialogValue.email, 
+            email: !dialogValue.email.trim() ? undefined : dialogValue.email.trim(), 
             userType: dialogValue.userType.toUpperCase().replace(/\s+/g, '_'),
-            coopEndDate: dialogValue.coopEndDate
+            coopEndDate: !dialogValue.coopEndDate ? undefined : dialogValue.coopEndDate
         }
 
         setLoading(true)
